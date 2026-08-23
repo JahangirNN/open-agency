@@ -62,14 +62,14 @@ export default function Navbar({ active }: { active?: boolean }) {
           href="https://wa.me/917778876166"
           target="_blank"
           rel="noopener noreferrer"
-          className="bg-ink text-paper text-xs sm:text-sm px-5 py-3 rounded-full hover:bg-accent transition-colors duration-300 whitespace-nowrap"
+          className="bg-ink text-paper text-xs sm:text-sm px-5 py-3 rounded-full hover:bg-accent active:scale-[0.97] transition-all duration-300 whitespace-nowrap"
         >
           Start a project ↗
         </a>
       </div>
     </motion.header>
 
-    <div className="fixed bottom-0 inset-x-0 z-50 md:hidden bg-paper/90 backdrop-blur-md border-t border-ink/10 px-6 py-3">
+    <div className="fixed bottom-0 inset-x-0 z-50 md:hidden bg-paper/90 backdrop-blur-md border-t border-ink/10 px-6 pt-2.5 pb-[max(0.625rem,env(safe-area-inset-bottom))]">
       <nav className="flex justify-around items-center">
         <a href="#services" className="flex flex-col items-center gap-1 text-[10px] uppercase tracking-widest text-ink-soft">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5">

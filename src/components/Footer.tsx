@@ -104,7 +104,7 @@ export default function Footer() {
   return (
     <footer
       id="contact"
-      className="relative mt-10 overflow-hidden rounded-t-[2.5rem] bg-ink px-6 pb-8 pt-24 text-paper md:px-10"
+      className="relative mt-10 overflow-hidden rounded-t-2xl md:rounded-t-[2.5rem] bg-ink px-6 pb-24 md:pb-8 pt-24 text-paper md:px-10"
     >
       <span className="absolute top-0 left-0 h-px w-full bg-gradient-to-r from-transparent via-accent to-transparent" />
 

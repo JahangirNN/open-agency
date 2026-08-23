@@ -46,7 +46,7 @@ export default function Manifesto() {
   return (
     <section
       id="studio"
-      className="mx-4 my-10 overflow-hidden rounded-[2.5rem] bg-ink px-6 py-20 text-paper md:mx-6 md:px-16 md:py-44"
+      className="mx-4 my-10 overflow-hidden rounded-2xl md:rounded-[2.5rem] bg-ink px-6 py-20 text-paper md:mx-6 md:px-16 md:py-44"
     >
       <p className="mb-10 text-xs uppercase tracking-[0.25em] text-paper/50">
         ( Manifesto )

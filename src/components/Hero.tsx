@@ -56,7 +56,7 @@ export default function Hero({ active }: { active?: boolean }) {
   return (
     <section
       id="top"
-      className="min-h-svh relative flex flex-col justify-end overflow-hidden px-6 md:px-10 pb-8 md:pb-10 pt-32"
+      className="min-h-svh relative flex flex-col justify-between md:justify-end overflow-hidden px-6 md:px-10 pb-20 md:pb-10 pt-20 md:pt-32"
     >
       <motion.img
         src={`${import.meta.env.BASE_URL}logo.jpg`}
@@ -79,7 +79,7 @@ export default function Hero({ active }: { active?: boolean }) {
         }}
         initial="hidden"
         animate={state}
-        className="absolute top-28 left-6 right-6 md:left-10 flex flex-wrap items-center gap-2 sm:gap-3 text-xs uppercase tracking-[0.25em] text-ink-soft"
+        className="relative z-10 md:absolute md:top-28 md:left-10 flex flex-wrap items-center gap-2 sm:gap-3 text-xs uppercase tracking-[0.25em] text-ink-soft"
       >
         <span>✦ Digital studio — Est. 2026</span>
         <span className="border border-ink/20 rounded-full px-3 py-1 flex items-center gap-2">
@@ -93,7 +93,7 @@ export default function Hero({ active }: { active?: boolean }) {
           variants={headlineParent}
           initial="hidden"
           animate={state}
-          className="          text-[clamp(2.4rem,11vw,10rem)] leading-[0.92] tracking-[-0.03em] font-medium uppercase text-ink"
+          className="text-[clamp(2.6rem,11vw,10rem)] leading-[0.92] tracking-[-0.03em] font-medium uppercase text-ink"
         >
           <span className="block overflow-hidden">
             <CharLine text="We build" lineIndex={0} />
@@ -136,13 +136,13 @@ export default function Hero({ active }: { active?: boolean }) {
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
             <a
               href="#contact"
-              className="bg-ink text-paper rounded-full px-7 py-4 hover:bg-accent transition-colors duration-300 w-full text-center"
+              className="bg-ink text-paper rounded-full px-7 py-4 hover:bg-accent active:scale-[0.97] transition-all duration-300 w-full text-center"
             >
               Start a project ↗
             </a>
             <a
               href="#work"
-              className="border border-ink/30 rounded-full px-7 py-4 hover:bg-ink hover:text-paper transition-colors duration-300 w-full text-center"
+              className="border border-ink/30 rounded-full px-7 py-4 hover:bg-ink hover:text-paper active:scale-[0.97] transition-all duration-300 w-full text-center"
             >
               See our work
             </a>

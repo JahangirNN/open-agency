@@ -123,7 +123,7 @@ export default function Testimonials() {
       </div>
 
       <div className="mt-6 flex items-center justify-between">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-1 sm:gap-3">
           {TESTIMONIALS.map((t, i) => (
             <button
               key={t.name}
@@ -131,9 +131,9 @@ export default function Testimonials() {
               data-cursor
               onClick={() => setIndex(i)}
               aria-label={`Show testimonial ${i + 1}`}
-              className="p-2"
+              className="p-1.5 sm:p-2"
             >
-              <span className={`block h-px transition-all duration-300 ${i === index ? "w-12 bg-ink" : "w-8 bg-ink/20 hover:bg-ink/40"}`} />
+              <span className={`block h-px transition-all duration-300 ${i === index ? "w-6 sm:w-12 bg-ink" : "w-4 sm:w-8 bg-ink/20 hover:bg-ink/40"}`} />
             </button>
           ))}
         </div>
@@ -146,7 +146,7 @@ export default function Testimonials() {
             data-cursor
             onClick={goPrev}
             aria-label="Previous testimonial"
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-ink/20 text-lg transition-colors hover:bg-ink hover:text-paper"
+            className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full border border-ink/20 text-lg transition-colors hover:bg-ink hover:text-paper active:scale-[0.93]"
           >
             &#8592;
           </button>
@@ -155,7 +155,7 @@ export default function Testimonials() {
             data-cursor
             onClick={goNext}
             aria-label="Next testimonial"
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-ink/20 text-lg transition-colors hover:bg-ink hover:text-paper"
+            className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full border border-ink/20 text-lg transition-colors hover:bg-ink hover:text-paper active:scale-[0.93]"
           >
             &#8594;
           </button>

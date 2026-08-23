@@ -33,6 +33,18 @@ body {
   color: var(--color-paper);
 }
 
+@media (max-width: 767px) {
+  html {
+    scroll-padding-bottom: 72px;
+  }
+}
+
+@media (hover: none) {
+  a, button {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
 @media (hover: hover) and (pointer: fine) {
   ::-webkit-scrollbar {
     width: 6px;
