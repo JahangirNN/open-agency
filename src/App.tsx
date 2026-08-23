@@ -11,6 +11,7 @@ import Testimonials from "./components/Testimonials";
 import Manifesto from "./components/Manifesto";
 import Footer from "./components/Footer";
 import Archive from "./components/Archive";
+import BackgroundParticles3D from "./components/BackgroundParticles3D";
 
 export default function App() {
   const [ready, setReady] = useState(false);
@@ -37,6 +38,7 @@ export default function App() {
   if (view === "archive") {
     return (
       <div className="noise cursor-none-desktop">
+        <BackgroundParticles3D />
         <Cursor />
         <Archive onBack={() => setView("home")} />
       </div>
@@ -44,7 +46,8 @@ export default function App() {
   }
 
   return (
-    <div className="noise cursor-none-desktop">
+    <div className="noise cursor-none-desktop relative">
+      <BackgroundParticles3D />
       {!ready && <Preloader onDone={() => setReady(true)} />}
       <Cursor />
       <Navbar active={ready} />

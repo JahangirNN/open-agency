@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
 import { fadeUp, staggerParent, viewportOnce } from "../lib/anim";
+import ManifestoCanvas3D from "./ManifestoCanvas3D";
 
 const TEXT =
   "We believe the web should feel alive. Every pixel intentional, every interaction earned. We build small, fast, beautiful websites that make big brands feel human again.";
@@ -48,6 +49,9 @@ export default function Manifesto() {
       id="studio"
       className="relative mx-4 my-10 overflow-hidden rounded-2xl md:rounded-[2.5rem] bg-ink px-6 py-20 text-paper md:mx-6 md:px-16 md:py-44"
     >
+      {/* 3D WebGL Kinetic Icosahedron Scene */}
+      <ManifestoCanvas3D />
+
       {/* Background ambient glow */}
       <motion.div
         animate={{

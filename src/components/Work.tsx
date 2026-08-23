@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import { fadeUp, viewportOnce } from "../lib/anim";
 
@@ -53,16 +53,33 @@ const projects: Project[] = [
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
+  const [rotateX, setRotateX] = useState(0);
+  const [rotateY, setRotateY] = useState(0);
+
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
   const scale = useTransform(scrollYProgress, [0, 1], [1.08, 1]);
 
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    setRotateX(-y * 0.025);
+    setRotateY(x * 0.025);
+  };
+
+  const handleMouseLeave = () => {
+    setRotateX(0);
+    setRotateY(0);
+  };
+
   return (
     <motion.div
-      className="sticky"
-          style={{ top: `calc(80px + ${index * 16}px)` }}
+      className="sticky [perspective:1000px]"
+      style={{ top: `calc(80px + ${index * 16}px)` }}
       variants={fadeUp}
       initial="hidden"
       whileInView="visible"
@@ -75,7 +92,13 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         data-cursor=""
         className="group block"
       >
-        <div className="grid min-h-[340px] md:min-h-[420px] overflow-hidden rounded-3xl border border-ink/10 bg-paper-dim shadow-sm transition-all duration-500 hover:shadow-xl hover:border-ink/20 md:grid-cols-2">
+        <motion.div
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          animate={{ rotateX, rotateY }}
+          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          className="grid min-h-[340px] md:min-h-[420px] overflow-hidden rounded-3xl border border-ink/10 bg-paper-dim shadow-sm transition-shadow duration-500 hover:shadow-2xl hover:border-ink/30 md:grid-cols-2 [transform-style:preserve-3d]"
+        >
           <div
             ref={ref}
             className="relative h-64 overflow-hidden md:h-auto"
@@ -112,7 +135,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               </span>
             </div>
           </div>
-        </div>
+        </motion.div>
       </a>
     </motion.div>
   );
