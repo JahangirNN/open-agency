@@ -57,7 +57,7 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
         className="flex flex-col items-center gap-6"
       >
         <motion.div variants={fadeUp} className="rounded-full bg-paper px-4 py-3">
-          <img src="/logo.jpg" alt="open agency" className="h-16 w-auto" />
+          <img src={`${import.meta.env.BASE_URL}logo.jpg`} alt="open agency" className="h-16 w-auto" />
         </motion.div>
 
         <motion.p

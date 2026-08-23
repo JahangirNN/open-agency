@@ -171,7 +171,7 @@ export default function Archive({ onBack }: ArchiveProps) {
           </button>
           <div className="hidden items-center gap-3 sm:flex">
             <img
-              src="/logo.jpg"
+              src={`${import.meta.env.BASE_URL}logo.jpg`}
               alt="Open Agency logo"
               className="h-9 w-auto rounded-sm"
             />

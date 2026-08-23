@@ -59,7 +59,7 @@ export default function Hero({ active }: { active?: boolean }) {
       className="min-h-svh relative flex flex-col justify-end overflow-hidden px-6 md:px-10 pb-8 md:pb-10 pt-32"
     >
       <motion.img
-        src="/logo.jpg"
+        src={`${import.meta.env.BASE_URL}logo.jpg`}
         alt=""
         aria-hidden
         initial={{ rotate: 0 }}

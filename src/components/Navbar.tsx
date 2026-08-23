@@ -36,7 +36,7 @@ export default function Navbar({ active }: { active?: boolean }) {
       >
         <a href="#top" className="flex items-center gap-3">
           <img
-            src="/logo.jpg"
+            src={`${import.meta.env.BASE_URL}logo.jpg`}
             alt="Open Agency logo"
             className="h-9 w-auto rounded-sm"
           />
