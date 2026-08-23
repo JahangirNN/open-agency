@@ -94,7 +94,7 @@ export default function Testimonials() {
             Clients <span className="font-serif italic text-accent">talk.</span>
           </h2>
         </div>
-        <span className="rounded-full border border-ink/15 bg-paper-dim px-3.5 py-1.5 text-xs text-ink-soft">
+        <span className="rounded-full border border-ink/15 bg-paper-dim px-3.5 py-1.5 text-xs text-ink-soft font-medium">
           ★ 5.0 Rating Across 27+ Projects
         </span>
       </motion.div>
@@ -112,7 +112,7 @@ export default function Testimonials() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -16 }}
             transition={{ duration: 0.5, ease: EASE }}
-            className="flex flex-col justify-between min-h-[220px]"
+            className="flex flex-col justify-between min-h-[200px]"
           >
             <div>
               <div className="flex items-center gap-1 text-amber-500 mb-4 text-sm">
@@ -139,46 +139,55 @@ export default function Testimonials() {
             </figcaption>
           </motion.figure>
         </AnimatePresence>
-
-        {/* Progress bar timer */}
-        <div className="absolute bottom-0 left-0 h-1.5 w-full overflow-hidden rounded-b-3xl bg-ink/5">
-          <motion.div
-            key={`${index}-${isPaused}`}
-            className="h-full bg-accent"
-            initial={{ width: isPaused ? "100%" : "0%" }}
-            animate={{ width: "100%" }}
-            transition={{
-              duration: isPaused ? 0 : AUTOPLAY_DURATION / 1000,
-              ease: "linear",
-            }}
-          />
-        </div>
       </div>
 
-      {/* Controls Bar */}
-      <div className="mt-6 flex items-center justify-between">
-        <div className="flex items-center gap-1 sm:gap-2">
-          {TESTIMONIALS.map((t, i) => (
-            <button
-              key={t.name}
-              type="button"
-              data-cursor
-              onClick={() => setIndex(i)}
-              aria-label={`Show testimonial ${i + 1}`}
-              className="p-1.5"
-            >
-              <span
-                className={`block h-1 rounded-full transition-all duration-300 ${
-                  i === index
-                    ? "w-6 sm:w-10 bg-accent"
-                    : "w-2 sm:w-4 bg-ink/20 hover:bg-ink/40"
-                }`}
-              />
-            </button>
-          ))}
+      {/* Controls Bar & Story-style Progress Segment Indicators */}
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
+        {/* Story Progress Indicators */}
+        <div className="flex items-center gap-2">
+          {TESTIMONIALS.map((t, i) => {
+            const isActive = i === index;
+            const isPassed = i < index;
+
+            return (
+              <button
+                key={t.name}
+                type="button"
+                data-cursor
+                onClick={() => setIndex(i)}
+                aria-label={`Go to testimonial ${i + 1}`}
+                className="py-2 focus:outline-none"
+              >
+                <div
+                  className={`h-1.5 rounded-full transition-all duration-300 overflow-hidden ${
+                    isActive
+                      ? "w-10 sm:w-14 bg-ink/15"
+                      : isPassed
+                      ? "w-4 sm:w-6 bg-accent"
+                      : "w-4 sm:w-6 bg-ink/20 hover:bg-ink/40"
+                  }`}
+                >
+                  {isActive && (
+                    <motion.div
+                      key={`${index}-${isPaused}`}
+                      className="h-full bg-accent rounded-full"
+                      initial={{ width: isPaused ? "100%" : "0%" }}
+                      animate={{ width: "100%" }}
+                      transition={{
+                        duration: isPaused ? 0 : AUTOPLAY_DURATION / 1000,
+                        ease: "linear",
+                      }}
+                    />
+                  )}
+                </div>
+              </button>
+            );
+          })}
         </div>
+
+        {/* Counter and Navigation Buttons */}
         <div className="flex items-center gap-3">
-          <span className="text-xs tabular-nums text-ink-soft mr-1 font-mono">
+          <span className="text-xs tabular-nums text-ink-soft font-mono">
             {String(index + 1).padStart(2, "0")} / {String(count).padStart(2, "0")}
           </span>
           <button
