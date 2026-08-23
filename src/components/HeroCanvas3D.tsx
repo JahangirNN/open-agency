@@ -161,7 +161,7 @@ export default function HeroCanvas3D() {
   return (
     <div
       ref={containerRef}
-      className="pointer-events-none absolute right-0 top-0 h-full w-full max-w-[750px] opacity-70 md:opacity-90 z-0"
+      className="pointer-events-none hidden md:block absolute right-0 top-0 h-full w-full max-w-[750px] md:opacity-90 z-0"
       aria-hidden="true"
     />
   );

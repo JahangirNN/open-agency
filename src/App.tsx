@@ -12,7 +12,6 @@ import Manifesto from "./components/Manifesto";
 import Footer from "./components/Footer";
 import Archive from "./components/Archive";
 import BackgroundParticles3D from "./components/BackgroundParticles3D";
-import ShaderGlobe3D from "./components/ShaderGlobe3D";
 
 export default function App() {
   const [ready, setReady] = useState(false);
@@ -56,9 +55,6 @@ export default function App() {
         <Hero active={ready} />
         <Marquee />
         <Services />
-        <div className="mx-auto max-w-[1400px] px-6 md:px-10">
-          <ShaderGlobe3D />
-        </div>
         <Work onViewAll={() => setView("archive")} />
         <Testimonials />
         <Manifesto />
