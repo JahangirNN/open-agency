@@ -35,6 +35,7 @@ body {
 
 @media (max-width: 767px) {
   html {
+    scroll-padding-top: 80px;
     scroll-padding-bottom: 72px;
   }
 }

@@ -56,7 +56,7 @@ export default function Hero({ active }: { active?: boolean }) {
   return (
     <section
       id="top"
-      className="min-h-svh relative flex flex-col justify-between md:justify-end overflow-hidden px-6 md:px-10 pb-20 md:pb-10 pt-20 md:pt-32"
+      className="min-h-svh relative flex flex-col justify-between md:justify-end overflow-hidden px-6 md:px-10 pb-20 md:pb-10 pt-28 sm:pt-32 md:pt-32"
     >
       <motion.img
         src={`${import.meta.env.BASE_URL}logo.jpg`}
