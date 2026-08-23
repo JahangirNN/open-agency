@@ -47,23 +47,30 @@ const TESTIMONIALS: Testimonial[] = [
   },
 ];
 
+const AUTOPLAY_DURATION = 6000;
+
 export default function Testimonials() {
   const [index, setIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
   const count = TESTIMONIALS.length;
 
   useEffect(() => {
-    const timer = setInterval(
-      () => setIndex((i) => (i + 1) % count),
-      6000,
-    );
-    return () => clearInterval(timer);
-  }, [index, count]);
+    if (isPaused) return;
 
-  const goPrev = useCallback(
-    () => setIndex((i) => (i - 1 + count) % count),
-    [count],
-  );
-  const goNext = useCallback(() => setIndex((i) => (i + 1) % count), [count]);
+    const timer = setInterval(() => {
+      setIndex((i) => (i + 1) % count);
+    }, AUTOPLAY_DURATION);
+
+    return () => clearInterval(timer);
+  }, [index, count, isPaused]);
+
+  const goPrev = useCallback(() => {
+    setIndex((i) => (i - 1 + count) % count);
+  }, [count]);
+
+  const goNext = useCallback(() => {
+    setIndex((i) => (i + 1) % count);
+  }, [count]);
 
   const current = TESTIMONIALS[index];
 
@@ -92,7 +99,12 @@ export default function Testimonials() {
         </span>
       </motion.div>
 
-      <div className="relative mt-10 rounded-3xl border border-ink/10 bg-paper-dim/80 p-6 sm:p-8 md:p-12 shadow-sm">
+      {/* Main Testimonial Card */}
+      <div
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+        className="relative mt-10 rounded-3xl border border-ink/10 bg-paper-dim/80 p-6 sm:p-8 md:p-12 shadow-sm transition-colors duration-300 hover:border-ink/20"
+      >
         <AnimatePresence mode="wait">
           <motion.figure
             key={index}
@@ -106,7 +118,7 @@ export default function Testimonials() {
               <div className="flex items-center gap-1 text-amber-500 mb-4 text-sm">
                 {"★".repeat(current.stars)}
                 <span className="ml-2 text-xs text-ink-soft font-mono uppercase tracking-wider">
-                  Verified Client Review
+                  Verified Client Review {isPaused && "(Paused)"}
                 </span>
               </div>
               <blockquote className="font-serif text-[clamp(1.35rem,2.8vw,2.2rem)] italic leading-[1.35] tracking-normal text-ink">
@@ -128,14 +140,17 @@ export default function Testimonials() {
           </motion.figure>
         </AnimatePresence>
 
-        {/* Progress bar line */}
-        <div className="absolute bottom-0 left-0 h-1 w-full overflow-hidden rounded-b-3xl bg-ink/5">
+        {/* Progress bar timer */}
+        <div className="absolute bottom-0 left-0 h-1.5 w-full overflow-hidden rounded-b-3xl bg-ink/5">
           <motion.div
-            key={index}
+            key={`${index}-${isPaused}`}
             className="h-full bg-accent"
-            initial={{ width: "0%" }}
+            initial={{ width: isPaused ? "100%" : "0%" }}
             animate={{ width: "100%" }}
-            transition={{ duration: 6, ease: "linear" }}
+            transition={{
+              duration: isPaused ? 0 : AUTOPLAY_DURATION / 1000,
+              ease: "linear",
+            }}
           />
         </div>
       </div>
@@ -152,7 +167,13 @@ export default function Testimonials() {
               aria-label={`Show testimonial ${i + 1}`}
               className="p-1.5"
             >
-              <span className={`block h-1 rounded-full transition-all duration-300 ${i === index ? "w-6 sm:w-10 bg-accent" : "w-2 sm:w-4 bg-ink/20 hover:bg-ink/40"}`} />
+              <span
+                className={`block h-1 rounded-full transition-all duration-300 ${
+                  i === index
+                    ? "w-6 sm:w-10 bg-accent"
+                    : "w-2 sm:w-4 bg-ink/20 hover:bg-ink/40"
+                }`}
+              />
             </button>
           ))}
         </div>
