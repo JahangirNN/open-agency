@@ -5,6 +5,7 @@ const services = [
   {
     title: "Web Design",
     desc: "Editorial layouts, obsessive typography, interfaces that feel inevitable.",
+    tags: ["Figma", "UI/UX", "Editorial Layouts"],
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-7 h-7">
         <rect x="3" y="3" width="18" height="18" rx="2" />
@@ -16,6 +17,7 @@ const services = [
   {
     title: "Development",
     desc: "React-grade performance budgets with buttery 60fps interaction.",
+    tags: ["React", "Vite", "TailwindCSS", "TypeScript"],
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-7 h-7">
         <path d="M16 18l6-6-6-6" />
@@ -26,6 +28,7 @@ const services = [
   {
     title: "Brand Identity",
     desc: "Logos, systems and voices sharp enough to cut through.",
+    tags: ["Typography", "Color Systems", "Brand Assets"],
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-7 h-7">
         <circle cx="12" cy="12" r="9" />
@@ -38,6 +41,7 @@ const services = [
   {
     title: "Motion & Interaction",
     desc: "Micro-animations that make products feel alive, never noisy.",
+    tags: ["Framer Motion", "Lenis Smooth Scroll", "CSS Physics"],
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-7 h-7">
         <path d="M5 3l14 9-14 9V3z" />
@@ -47,6 +51,7 @@ const services = [
   {
     title: "SEO & Growth",
     desc: "Technical foundations that turn attention into revenue.",
+    tags: ["Lighthouse 95+", "Metadata & OpenGraph", "Fast Edge Delivery"],
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-7 h-7">
         <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
@@ -59,7 +64,7 @@ export default function Services() {
   return (
     <section
       id="services"
-      className="mx-auto max-w-[1400px] px-6 py-24 md:px-10 md:py-36"
+      className="mx-auto max-w-[1400px] px-6 py-20 md:px-10 md:py-32"
     >
       <motion.div
         variants={fadeUp}
@@ -69,14 +74,14 @@ export default function Services() {
         className="md:flex md:items-end md:justify-between"
       >
         <div>
-          <p className="mb-4 text-xs uppercase tracking-[0.25em] text-ink-soft">
+          <p className="mb-4 text-xs uppercase tracking-[0.25em] text-ink-soft font-medium">
             ( What we do )
           </p>
           <h2 className="text-[clamp(2.5rem,6vw,5.5rem)] font-medium tracking-tight">
             Services<span className="font-serif italic text-accent">.</span>
           </h2>
         </div>
-        <p className="mt-6 max-w-sm text-ink-soft md:mt-0">
+        <p className="mt-6 max-w-sm text-ink-soft md:mt-0 text-base">
           Everything a brand needs to live online — designed and built under one
           roof.
         </p>
@@ -110,9 +115,19 @@ export default function Services() {
                 <h3 className="text-2xl md:text-3xl font-medium tracking-tight transition-all duration-500 ease-out group-hover:translate-x-3 group-hover:text-paper">
                   {service.title}
                 </h3>
-                <p className="mt-2 max-w-xl text-sm text-ink-soft transition-colors duration-500 group-hover:text-paper/75 block md:block">
+                <p className="mt-2 max-w-xl text-sm text-ink-soft transition-colors duration-500 group-hover:text-paper/75">
                   {service.desc}
                 </p>
+                <div className="mt-3 flex flex-wrap gap-1.5 opacity-80 group-hover:opacity-100 transition-opacity">
+                  {service.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-full border border-ink/10 group-hover:border-paper/20 bg-paper/5 px-2.5 py-0.5 text-[10px] font-mono text-ink-soft group-hover:text-paper/80 transition-colors"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
               <span className="translate-y-2 -translate-x-2 text-2xl text-accent opacity-0 transition-all duration-500 ease-out group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100 group-hover:scale-110">
                 ↗
