@@ -73,17 +73,17 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         target="_blank"
         rel="noopener noreferrer"
         data-cursor=""
-        className="block"
+        className="group block"
       >
-        <div className="grid min-h-[340px] md:min-h-[420px] overflow-hidden rounded-3xl border border-ink/10 bg-paper-dim shadow-sm transition-shadow duration-500 hover:shadow-lg md:grid-cols-2">
+        <div className="grid min-h-[340px] md:min-h-[420px] overflow-hidden rounded-3xl border border-ink/10 bg-paper-dim shadow-sm transition-all duration-500 hover:shadow-xl hover:border-ink/20 md:grid-cols-2">
           <div
             ref={ref}
             className="relative h-64 overflow-hidden md:h-auto"
             style={{ background: project.art }}
           >
-            <motion.div style={{ scale }} className="absolute inset-0">
+            <motion.div style={{ scale }} className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-105">
               <span
-                className={`absolute inset-0 flex select-none items-center justify-center font-serif text-[8rem] md:text-[10rem] italic ${project.ghostColor}`}
+                className={`absolute inset-0 flex select-none items-center justify-center font-serif text-[8rem] md:text-[10rem] italic transition-transform duration-700 ease-out group-hover:scale-110 group-hover:rotate-2 ${project.ghostColor}`}
               >
                 {project.name.charAt(0)}
               </span>
@@ -92,22 +92,23 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
           <div className="flex flex-col justify-between p-6 md:p-12">
             <div className="flex items-start justify-between gap-6">
-              <span className="rounded-full border border-ink/20 px-3 py-1 text-xs uppercase tracking-wider text-ink-soft">
+              <span className="rounded-full border border-ink/20 px-3 py-1 text-xs uppercase tracking-wider text-ink-soft group-hover:border-accent/40 group-hover:text-accent transition-colors duration-300">
                 {project.category}
               </span>
               <span className="text-sm text-ink-soft">{project.year}</span>
             </div>
 
             <div className="mt-10 md:mt-0">
-              <h3 className="text-3xl font-medium tracking-tight md:text-6xl">
+              <h3 className="text-3xl font-medium tracking-tight md:text-6xl transition-colors duration-300 group-hover:text-accent">
                 {project.name}
               </h3>
               <p className="mt-3 max-w-sm text-ink-soft">{project.desc}</p>
             </div>
 
             <div className="mt-10 md:mt-0">
-              <span className="text-sm underline decoration-ink/30 underline-offset-4 transition-colors hover:text-accent">
-                Visit live site ↗
+              <span className="inline-flex items-center gap-1 text-sm font-medium text-ink underline decoration-ink/30 underline-offset-4 transition-all duration-300 group-hover:text-accent group-hover:decoration-accent">
+                Visit live site
+                <span className="inline-block transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5">↗</span>
               </span>
             </div>
           </div>

@@ -31,10 +31,10 @@ export default function Marquee() {
       initial="hidden"
       whileInView="visible"
       viewport={viewportOnce}
-      className="rotate-0 my-2 scale-100 overflow-hidden border-y border-paper/10 bg-ink py-5 text-paper md:-rotate-1 md:my-4 md:scale-[1.02] md:py-7"
+      className="group rotate-0 my-2 scale-100 overflow-hidden border-y border-paper/10 bg-ink py-5 text-paper md:-rotate-1 md:my-4 md:scale-[1.02] md:py-7 cursor-pointer"
     >
       <motion.div
-        className="flex w-max"
+        className="flex w-max group-hover:[animation-play-state:paused]"
         animate={{ x: ["0%", "-50%"] }}
         transition={{ duration: 22, ease: "linear", repeat: Infinity }}
       >

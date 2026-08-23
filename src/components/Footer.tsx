@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { motion } from "motion/react";
-import { EASE, viewportOnce } from "../lib/anim";
+import { EASE, fadeUp, staggerParent, viewportOnce } from "../lib/anim";
 
 const timeFormatter = new Intl.DateTimeFormat(undefined, {
   hour: "2-digit",
@@ -124,9 +124,15 @@ export default function Footer() {
       </div>
 
       {/* Contact Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 my-12">
+      <motion.div
+        variants={staggerParent}
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewportOnce}
+        className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 my-12"
+      >
         {/* WhatsApp Card */}
-        <div className="group relative flex flex-col justify-between rounded-2xl border border-paper/10 bg-paper/[0.04] p-6 backdrop-blur-sm transition-all duration-300 hover:border-accent/40 hover:bg-paper/[0.08]">
+        <motion.div variants={fadeUp} className="group relative flex flex-col justify-between rounded-2xl border border-paper/10 bg-paper/[0.04] p-6 backdrop-blur-sm transition-all duration-300 hover:border-accent/40 hover:bg-paper/[0.08] hover:-translate-y-1">
           <div>
             <div className="flex items-center justify-between mb-4">
               <span className="p-3 rounded-xl bg-accent/20 text-accent">
@@ -158,10 +164,10 @@ export default function Footer() {
               {copiedPhone ? "Copied!" : "Copy"}
             </button>
           </div>
-        </div>
+        </motion.div>
 
         {/* Email Card */}
-        <div className="group relative flex flex-col justify-between rounded-2xl border border-paper/10 bg-paper/[0.04] p-6 backdrop-blur-sm transition-all duration-300 hover:border-accent/40 hover:bg-paper/[0.08]">
+        <motion.div variants={fadeUp} className="group relative flex flex-col justify-between rounded-2xl border border-paper/10 bg-paper/[0.04] p-6 backdrop-blur-sm transition-all duration-300 hover:border-accent/40 hover:bg-paper/[0.08] hover:-translate-y-1">
           <div>
             <div className="flex items-center justify-between mb-4">
               <span className="p-3 rounded-xl bg-paper/10 text-paper">
@@ -192,10 +198,10 @@ export default function Footer() {
               {copiedEmail ? "Copied!" : "Copy"}
             </button>
           </div>
-        </div>
+        </motion.div>
 
         {/* Instagram Card */}
-        <div className="group relative flex flex-col justify-between rounded-2xl border border-paper/10 bg-paper/[0.04] p-6 backdrop-blur-sm transition-all duration-300 hover:border-accent/40 hover:bg-paper/[0.08]">
+        <motion.div variants={fadeUp} className="group relative flex flex-col justify-between rounded-2xl border border-paper/10 bg-paper/[0.04] p-6 backdrop-blur-sm transition-all duration-300 hover:border-accent/40 hover:bg-paper/[0.08] hover:-translate-y-1">
           <div>
             <div className="flex items-center justify-between mb-4">
               <span className="p-3 rounded-xl bg-pink-500/20 text-pink-400">
@@ -222,8 +228,8 @@ export default function Footer() {
               Follow & DM ↗
             </a>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       {/* Services & Stats Footer Strip */}
       <div className="mt-14 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8 border-t border-paper/10 pt-10">

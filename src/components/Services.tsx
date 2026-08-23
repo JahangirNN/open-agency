@@ -102,7 +102,7 @@ export default function Services() {
                 <span className="font-serif text-sm italic text-ink-soft transition-colors duration-500 group-hover:text-paper/60">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <span className="text-ink-soft/60 transition-colors duration-500 group-hover:text-paper/50">
+                <span className="text-ink-soft/60 transition-transform duration-500 ease-out group-hover:scale-110 group-hover:rotate-6 group-hover:text-paper">
                   {service.icon}
                 </span>
               </div>
@@ -110,11 +110,11 @@ export default function Services() {
                 <h3 className="text-2xl md:text-3xl font-medium tracking-tight transition-all duration-500 ease-out group-hover:translate-x-3 group-hover:text-paper">
                   {service.title}
                 </h3>
-                <p className="mt-2 max-w-xl text-sm text-ink-soft transition-colors duration-500 group-hover:text-paper/70 block md:block">
+                <p className="mt-2 max-w-xl text-sm text-ink-soft transition-colors duration-500 group-hover:text-paper/75 block md:block">
                   {service.desc}
                 </p>
               </div>
-              <span className="translate-y-2 -translate-x-2 text-2xl text-accent opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100">
+              <span className="translate-y-2 -translate-x-2 text-2xl text-accent opacity-0 transition-all duration-500 ease-out group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100 group-hover:scale-110">
                 ↗
               </span>
             </div>

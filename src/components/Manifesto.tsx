@@ -46,15 +46,25 @@ export default function Manifesto() {
   return (
     <section
       id="studio"
-      className="mx-4 my-10 overflow-hidden rounded-2xl md:rounded-[2.5rem] bg-ink px-6 py-20 text-paper md:mx-6 md:px-16 md:py-44"
+      className="relative mx-4 my-10 overflow-hidden rounded-2xl md:rounded-[2.5rem] bg-ink px-6 py-20 text-paper md:mx-6 md:px-16 md:py-44"
     >
-      <p className="mb-10 text-xs uppercase tracking-[0.25em] text-paper/50">
+      {/* Background ambient glow */}
+      <motion.div
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.15, 0.25, 0.15],
+        }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        className="pointer-events-none absolute -right-20 -top-20 h-96 w-96 rounded-full bg-accent/30 blur-[100px]"
+      />
+
+      <p className="relative z-10 mb-10 text-xs uppercase tracking-[0.25em] text-paper/50">
         ( Manifesto )
       </p>
 
       <p
         ref={ref}
-        className="max-w-6xl text-[clamp(1.75rem,4.5vw,4rem)] font-medium leading-[1.15] tracking-tight"
+        className="relative z-10 max-w-6xl text-[clamp(1.75rem,4.5vw,4rem)] font-medium leading-[1.15] tracking-tight"
       >
         {WORDS.map((word, i) => (
           <Word
@@ -73,7 +83,7 @@ export default function Manifesto() {
         initial="hidden"
         whileInView="visible"
         viewport={viewportOnce}
-        className="mt-14 grid grid-cols-2 gap-6 md:flex md:flex-wrap md:gap-x-12 md:gap-y-6"
+        className="relative z-10 mt-14 grid grid-cols-2 gap-6 md:flex md:flex-wrap md:gap-x-12 md:gap-y-6"
       >
         {stats.map((stat) => (
           <motion.div key={stat.label} variants={fadeUp}>
