@@ -8,6 +8,8 @@ export default function HeroCanvas3D() {
     const container = containerRef.current;
     if (!container) return;
 
+    const isMobile = window.innerWidth < 768;
+
     // Scene, Camera, Renderer
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
@@ -20,17 +22,19 @@ export default function HeroCanvas3D() {
 
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
-      antialias: true,
+      antialias: !isMobile,
       powerPreference: "high-performance",
     });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1 : 1.5));
     renderer.setSize(container.clientWidth, container.clientHeight);
     container.appendChild(renderer.domElement);
 
     // 3D Geometry: Kinetic Wireframe Torus Knot
-    const geometry = new THREE.TorusKnotGeometry(1.3, 0.35, 120, 16);
+    const geometry = isMobile
+      ? new THREE.TorusKnotGeometry(1.3, 0.35, 60, 12)
+      : new THREE.TorusKnotGeometry(1.3, 0.35, 120, 16);
     
-    // Wireframe Material with Bright Accent Blue & Translucency
+    // Wireframe Material
     const wireframeMaterial = new THREE.MeshBasicMaterial({
       color: new THREE.Color("#3d56f0"),
       wireframe: true,
@@ -38,7 +42,7 @@ export default function HeroCanvas3D() {
       opacity: 0.3,
     });
 
-    // Translucent Inner Glass Material (Prevents dark text obscuration)
+    // Translucent Inner Glass Material
     const innerMaterial = new THREE.MeshStandardMaterial({
       color: new THREE.Color("#3d56f0"),
       transparent: true,
@@ -55,14 +59,12 @@ export default function HeroCanvas3D() {
     group.add(torusKnot);
     group.add(wireframeMesh);
     
-    // Responsive X-offset: on narrow screens shift up/right so it never hides text
-    const isMobile = window.innerWidth < 768;
     group.position.x = isMobile ? 0.3 : 0.8;
     group.position.y = isMobile ? 0.6 : 0;
     scene.add(group);
 
     // Ambient 3D Particle Cloud
-    const particleCount = 140;
+    const particleCount = isMobile ? 60 : 140;
     const particleGeometry = new THREE.BufferGeometry();
     const positions = new Float32Array(particleCount * 3);
 
@@ -108,7 +110,9 @@ export default function HeroCanvas3D() {
       mouseY = (e.clientY - windowHalfY) * 0.0008;
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
+    if (!isMobile) {
+      window.addEventListener("mousemove", handleMouseMove);
+    }
 
     // Resize Handler
     const handleResize = () => {
@@ -124,11 +128,14 @@ export default function HeroCanvas3D() {
 
     window.addEventListener("resize", handleResize);
 
-    // Animation Loop
+    // Animation Loop with Visibility Control (IntersectionObserver)
     let animationFrameId: number;
+    let isVisible = true;
     const clock = new THREE.Clock();
 
     const animate = () => {
+      if (!isVisible) return;
+
       const elapsedTime = clock.getElapsedTime();
 
       targetX += (mouseX - targetX) * 0.05;
@@ -136,7 +143,7 @@ export default function HeroCanvas3D() {
 
       group.rotation.x = elapsedTime * 0.2 + targetY;
       group.rotation.y = elapsedTime * 0.3 + targetX;
-      group.position.y = (isMobile ? 0.6 : 0) + Math.sin(elapsedTime * 1.5) * 0.12;
+      group.position.y = (window.innerWidth < 768 ? 0.6 : 0) + Math.sin(elapsedTime * 1.5) * 0.12;
 
       particles.rotation.y = -elapsedTime * 0.06;
 
@@ -144,10 +151,29 @@ export default function HeroCanvas3D() {
       animationFrameId = requestAnimationFrame(animate);
     };
 
+    // Pause render loop when scrolled off-screen
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isVisible = entry.isIntersecting;
+          if (isVisible) {
+            animate();
+          } else {
+            cancelAnimationFrame(animationFrameId);
+          }
+        });
+      },
+      { threshold: 0.05 }
+    );
+
+    observer.observe(container);
     animate();
 
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
+      observer.disconnect();
+      if (!isMobile) {
+        window.removeEventListener("mousemove", handleMouseMove);
+      }
       window.removeEventListener("resize", handleResize);
       cancelAnimationFrame(animationFrameId);
       if (container.contains(renderer.domElement)) {

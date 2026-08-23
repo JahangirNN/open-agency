@@ -18,13 +18,20 @@ export default function App() {
   const [view, setView] = useState<"home" | "archive">("home");
 
   useEffect(() => {
-    const lenis = new Lenis({ anchors: true, lerp: 0.1 });
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    const lenis = new Lenis({
+      anchors: true,
+      lerp: isMobile ? 1 : 0.08,
+      smoothWheel: true,
+    });
+
     let raf = 0;
     const loop = (time: number) => {
       lenis.raf(time);
       raf = requestAnimationFrame(loop);
     };
     raf = requestAnimationFrame(loop);
+
     return () => {
       cancelAnimationFrame(raf);
       lenis.destroy();

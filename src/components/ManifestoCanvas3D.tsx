@@ -8,6 +8,8 @@ export default function ManifestoCanvas3D() {
     const container = containerRef.current;
     if (!container) return;
 
+    const isMobile = window.innerWidth < 768;
+
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
       45,
@@ -19,15 +21,18 @@ export default function ManifestoCanvas3D() {
 
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
-      antialias: true,
+      antialias: !isMobile,
       powerPreference: "high-performance",
     });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1 : 1.5));
     renderer.setSize(container.clientWidth, container.clientHeight);
     container.appendChild(renderer.domElement);
 
     // 3D Geometry: Detailed Wireframe Icosahedron
-    const geometry = new THREE.IcosahedronGeometry(1.6, 2);
+    const geometry = isMobile
+      ? new THREE.IcosahedronGeometry(1.6, 1)
+      : new THREE.IcosahedronGeometry(1.6, 2);
+
     const material = new THREE.MeshStandardMaterial({
       color: new THREE.Color("#3d56f0"),
       wireframe: true,
@@ -57,11 +62,14 @@ export default function ManifestoCanvas3D() {
 
     window.addEventListener("resize", handleResize);
 
-    // Animation Loop
+    // Animation Loop with IntersectionObserver pausing
     let animationFrameId: number;
+    let isVisible = false;
     const clock = new THREE.Clock();
 
     const animate = () => {
+      if (!isVisible) return;
+
       const time = clock.getElapsedTime();
 
       mesh.rotation.x = time * 0.2;
@@ -72,9 +80,24 @@ export default function ManifestoCanvas3D() {
       animationFrameId = requestAnimationFrame(animate);
     };
 
-    animate();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isVisible = entry.isIntersecting;
+          if (isVisible) {
+            animate();
+          } else {
+            cancelAnimationFrame(animationFrameId);
+          }
+        });
+      },
+      { threshold: 0.05 }
+    );
+
+    observer.observe(container);
 
     return () => {
+      observer.disconnect();
       window.removeEventListener("resize", handleResize);
       cancelAnimationFrame(animationFrameId);
       if (container.contains(renderer.domElement)) {
