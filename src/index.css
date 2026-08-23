@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #f4f2ec;
+  --color-paper-dim: #eae7de;
+  --color-ink: #0e1440;
+  --color-ink-soft: #3c4270;
+  --color-accent: #3d56f0;
+
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Instrument Serif", Georgia, serif;
+}
+
+html {
+  scroll-behavior: initial;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+body {
+  @apply bg-paper text-ink font-sans antialiased overflow-x-hidden;
+}
+
+::selection {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-paper);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-ink);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-accent);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cursor-none-desktop,
+  .cursor-none-desktop * {
+    cursor: none !important;
+  }
+}
+
+.text-stroke {
+  -webkit-text-stroke: 1px var(--color-ink);
+  color: transparent;
+}
+
+.noise::after {
+  content: "";
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  pointer-events: none;
+  z-index: 90;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
