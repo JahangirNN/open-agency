@@ -162,16 +162,16 @@ export default function Hero({ active }: { active?: boolean }) {
             websites for brands that refuse to be ignored.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto relative z-20">
             <a
               href="#contact"
-              className="bg-ink text-paper font-medium rounded-full px-7 py-4 hover:bg-accent active:scale-[0.97] transition-all duration-300 w-full sm:w-auto text-center shadow-sm"
+              className="bg-ink text-paper font-semibold rounded-full px-7 py-4 hover:bg-accent active:scale-[0.97] transition-all duration-300 w-full sm:w-auto text-center shadow-md"
             >
               Start a project ↗
             </a>
             <a
               href="#work"
-              className="border border-ink/30 font-medium rounded-full px-7 py-4 hover:bg-ink hover:text-paper active:scale-[0.97] transition-all duration-300 w-full sm:w-auto text-center"
+              className="border border-ink/30 bg-paper/90 backdrop-blur-md text-ink font-semibold rounded-full px-7 py-4 hover:bg-ink hover:text-paper active:scale-[0.97] transition-all duration-300 w-full sm:w-auto text-center shadow-sm"
             >
               See our work
             </a>

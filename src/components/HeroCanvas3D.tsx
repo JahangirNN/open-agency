@@ -51,6 +51,7 @@ export default function HeroCanvas3D() {
     const group = new THREE.Group();
     group.add(torusKnot);
     group.add(wireframeMesh);
+    group.position.x = 0.8;
     scene.add(group);
 
     // Ambient 3D Particle Cloud
