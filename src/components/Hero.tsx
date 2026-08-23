@@ -1,6 +1,7 @@
 import type { Variants } from "motion/react";
 import { motion } from "motion/react";
 import { EASE } from "../lib/anim";
+import HeroCanvas3D from "./HeroCanvas3D";
 
 const BASE_DELAY = 0.35;
 const LINE_STAGGER = 0.12;
@@ -58,6 +59,9 @@ export default function Hero({ active }: { active?: boolean }) {
       id="top"
       className="min-h-svh relative flex flex-col justify-between md:justify-end overflow-hidden px-6 md:px-10 pb-20 md:pb-10 pt-28 sm:pt-32 md:pt-32"
     >
+      {/* 3D WebGL Scene */}
+      <HeroCanvas3D />
+
       <motion.img
         src={`${import.meta.env.BASE_URL}logo.jpg`}
         alt=""
@@ -65,7 +69,7 @@ export default function Hero({ active }: { active?: boolean }) {
         initial={{ rotate: 0 }}
         animate={{ rotate: 360 }}
         transition={{ duration: 60, ease: "linear", repeat: Infinity }}
-        className="absolute right-[-10%] top-[15%] w-[55vw] max-w-[720px] opacity-[0.05] pointer-events-none select-none"
+        className="absolute right-[-10%] top-[15%] w-[55vw] max-w-[720px] opacity-[0.03] pointer-events-none select-none"
       />
 
       {/* Ambient background glow */}
