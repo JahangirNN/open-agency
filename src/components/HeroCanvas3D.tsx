@@ -28,20 +28,23 @@ export default function HeroCanvas3D() {
     container.appendChild(renderer.domElement);
 
     // 3D Geometry: Kinetic Wireframe Torus Knot
-    const geometry = new THREE.TorusKnotGeometry(1.4, 0.4, 120, 16);
+    const geometry = new THREE.TorusKnotGeometry(1.3, 0.35, 120, 16);
     
-    // Custom Material with Subtle Accent Blue Glow
+    // Wireframe Material with Bright Accent Blue & Translucency
     const wireframeMaterial = new THREE.MeshBasicMaterial({
       color: new THREE.Color("#3d56f0"),
       wireframe: true,
       transparent: true,
-      opacity: 0.25,
+      opacity: 0.3,
     });
 
+    // Translucent Inner Glass Material (Prevents dark text obscuration)
     const innerMaterial = new THREE.MeshStandardMaterial({
-      color: new THREE.Color("#0e1440"),
-      roughness: 0.2,
-      metalness: 0.8,
+      color: new THREE.Color("#3d56f0"),
+      transparent: true,
+      opacity: 0.08,
+      roughness: 0.1,
+      metalness: 0.9,
     });
 
     const torusKnot = new THREE.Mesh(geometry, innerMaterial);
@@ -51,11 +54,15 @@ export default function HeroCanvas3D() {
     const group = new THREE.Group();
     group.add(torusKnot);
     group.add(wireframeMesh);
-    group.position.x = 0.8;
+    
+    // Responsive X-offset: on narrow screens shift up/right so it never hides text
+    const isMobile = window.innerWidth < 768;
+    group.position.x = isMobile ? 0.3 : 0.8;
+    group.position.y = isMobile ? 0.6 : 0;
     scene.add(group);
 
     // Ambient 3D Particle Cloud
-    const particleCount = 180;
+    const particleCount = 140;
     const particleGeometry = new THREE.BufferGeometry();
     const positions = new Float32Array(particleCount * 3);
 
@@ -72,25 +79,21 @@ export default function HeroCanvas3D() {
 
     const particleMaterial = new THREE.PointsMaterial({
       color: new THREE.Color("#3d56f0"),
-      size: 0.035,
+      size: 0.03,
       transparent: true,
-      opacity: 0.4,
+      opacity: 0.35,
     });
 
     const particles = new THREE.Points(particleGeometry, particleMaterial);
     scene.add(particles);
 
     // Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
     scene.add(ambientLight);
 
-    const pointLight = new THREE.PointLight(0x3d56f0, 3, 20);
+    const pointLight = new THREE.PointLight(0x3d56f0, 4, 20);
     pointLight.position.set(4, 4, 4);
     scene.add(pointLight);
-
-    const pointLight2 = new THREE.PointLight(0xffffff, 1.5, 20);
-    pointLight2.position.set(-4, -4, -2);
-    scene.add(pointLight2);
 
     // Mouse Interaction
     let mouseX = 0;
@@ -113,6 +116,10 @@ export default function HeroCanvas3D() {
       camera.aspect = container.clientWidth / container.clientHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(container.clientWidth, container.clientHeight);
+
+      const mobile = window.innerWidth < 768;
+      group.position.x = mobile ? 0.3 : 0.8;
+      group.position.y = mobile ? 0.6 : 0;
     };
 
     window.addEventListener("resize", handleResize);
@@ -124,16 +131,14 @@ export default function HeroCanvas3D() {
     const animate = () => {
       const elapsedTime = clock.getElapsedTime();
 
-      // Smooth mouse lerp
       targetX += (mouseX - targetX) * 0.05;
       targetY += (mouseY - targetY) * 0.05;
 
-      // Rotation & Floating
-      group.rotation.x = elapsedTime * 0.25 + targetY;
-      group.rotation.y = elapsedTime * 0.35 + targetX;
-      group.position.y = Math.sin(elapsedTime * 1.5) * 0.15;
+      group.rotation.x = elapsedTime * 0.2 + targetY;
+      group.rotation.y = elapsedTime * 0.3 + targetX;
+      group.position.y = (isMobile ? 0.6 : 0) + Math.sin(elapsedTime * 1.5) * 0.12;
 
-      particles.rotation.y = -elapsedTime * 0.08;
+      particles.rotation.y = -elapsedTime * 0.06;
 
       renderer.render(scene, camera);
       animationFrameId = requestAnimationFrame(animate);
@@ -141,7 +146,6 @@ export default function HeroCanvas3D() {
 
     animate();
 
-    // Cleanup
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("resize", handleResize);
@@ -161,7 +165,7 @@ export default function HeroCanvas3D() {
   return (
     <div
       ref={containerRef}
-      className="pointer-events-none hidden md:block absolute right-0 top-0 h-full w-full max-w-[750px] md:opacity-90 z-0"
+      className="pointer-events-none absolute right-0 top-0 h-full w-full max-w-[750px] opacity-45 md:opacity-85 z-0"
       aria-hidden="true"
     />
   );

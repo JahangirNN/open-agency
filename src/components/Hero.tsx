@@ -89,7 +89,7 @@ export default function Hero({ active }: { active?: boolean }) {
         className="relative z-10 md:absolute md:top-28 md:left-10 flex flex-wrap items-center gap-2 sm:gap-3 text-xs uppercase tracking-[0.25em] text-ink-soft"
       >
         <span className="font-medium">✦ Digital studio — Est. 2026</span>
-        <span className="border border-ink/20 bg-paper/60 backdrop-blur-sm rounded-full px-3 py-1 flex items-center gap-2">
+        <span className="border border-ink/20 bg-paper/85 backdrop-blur-md rounded-full px-3 py-1 flex items-center gap-2 shadow-xs">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
           Available for new projects
         </span>
@@ -133,13 +133,13 @@ export default function Hero({ active }: { active?: boolean }) {
 
         {/* Feature Pills */}
         <div className="mt-4 flex flex-wrap gap-2">
-          <span className="rounded-full border border-ink/15 bg-paper/80 px-3 py-1 text-[11px] font-medium uppercase tracking-wider text-ink-soft">
+          <span className="rounded-full border border-ink/15 bg-paper/90 backdrop-blur-md px-3 py-1 text-[11px] font-medium uppercase tracking-wider text-ink shadow-xs">
             ⚡ Sub-second Speeds
           </span>
-          <span className="rounded-full border border-ink/15 bg-paper/80 px-3 py-1 text-[11px] font-medium uppercase tracking-wider text-ink-soft">
+          <span className="rounded-full border border-ink/15 bg-paper/90 backdrop-blur-md px-3 py-1 text-[11px] font-medium uppercase tracking-wider text-ink shadow-xs">
             🎨 Zero Templates
           </span>
-          <span className="rounded-full border border-ink/15 bg-paper/80 px-3 py-1 text-[11px] font-medium uppercase tracking-wider text-ink-soft">
+          <span className="rounded-full border border-ink/15 bg-paper/90 backdrop-blur-md px-3 py-1 text-[11px] font-medium uppercase tracking-wider text-ink shadow-xs">
             ✦ 27+ Live Launches
           </span>
         </div>
